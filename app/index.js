@@ -26,7 +26,9 @@ initTelegramBot((bot) => {
     next();
   }
 
-  router.post('/reward', validateHeaders, addBotToContext, handlerFor.reward);
+  router
+    .post('/reward', validateHeaders, addBotToContext, handlerFor.reward)
+    .post('/topic', validateHeaders, addBotToContext, handlerFor.topic);
 
   app
     .use(router.routes())
