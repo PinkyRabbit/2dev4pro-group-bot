@@ -23,4 +23,4 @@ jobs:
           username: ${{ secrets.DEV_USER }}
           password: ${{ secrets.DEV_PASSWORD }}
           port: 22
-          script: cd /var/www/2dev4pro-group && git pull && pm2 restart group_telegram
+          script: cd /var/www/2dev4pro-group && eval "$(ssh-agent -s)" && git pull && pm2 restart group_telegram
