@@ -6,8 +6,10 @@ const messageFor = {
     ' ',
     `_${description}_`,
   ].join('\n'),
-  topic: (username, topic) =>
-    `🥶 Пользователь @${username} создал новую категорию *${topic}*.`,
+  topic: (username, topic) => [
+    `Пользователь @${username} создал новый раздел *${topic}*.`,
+    '🥶  🎃  🥶  🎃  🥶',
+  ].join('\n'),
 };
 
 module.exports = { messageFor };
