@@ -13,7 +13,7 @@ function reward(context) {
 
 function topic(context) {
   const { body, bot } = context.request;
-  const text = messageFor.reward(body.username, body.topic);
+  const text = messageFor.topic(body.username, body.topic);
   bot.sendMessage(chatId, text, parseMode);
   context.body = { success: 1 };
 }
