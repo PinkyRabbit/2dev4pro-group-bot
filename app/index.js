@@ -17,10 +17,9 @@ app.use(bodyParser());
 if (NODE_ENV === 'production') {
   app.use(helmet());
 }
-if (CORS) {
-  const origin = CORS.split(',');
-  app.use(cors({ origin }));
-}
+
+const origin = CORS ? CORS.split(',') : '*';
+app.use(cors({ origin }));
 
 function validateHeaders(context, next) {
   const key = context.headers['x-telegram-key'];
