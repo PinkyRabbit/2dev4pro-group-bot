@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development node ./index.js"
+    "start": "NODE_ENV=production node ./index.js",
+    "start:dev": "NODE_ENV=development node ./index.js"
   },
   "keywords": [],
   "author": "",
@@ -13,10 +14,12 @@
     "extends": "plugin:unicorn/recommended"
   },
   "dependencies": {
+    "@koa/cors": "^3.1.0",
     "@koa/router": "^10.0.0",
     "dotenv": "^8.2.0",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
+    "koa-helmet": "^6.0.0",
     "node-telegram-bot-api": "^0.51.0"
   },
   "devDependencies": {
