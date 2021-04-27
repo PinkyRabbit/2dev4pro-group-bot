@@ -13,11 +13,18 @@ function reward(context) {
 
 function topic(context) {
   const { body, bot } = context.request;
-  const text = messageFor.topic(body.username, body.topic);
+  const text = messageFor.topic(body);
+  bot.sendMessage(chatId, text, parseMode);
+  context.body = { success: 1 };
+}
+
+function admin(context) {
+  const { body, bot } = context.request;
+  const text = messageFor.admin(body);
   bot.sendMessage(chatId, text, parseMode);
   context.body = { success: 1 };
 }
 
 module.exports = {
-  handlerFor: { reward, topic },
+  handlerFor: { reward, topic, admin },
 };
