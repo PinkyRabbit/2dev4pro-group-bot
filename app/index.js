@@ -38,7 +38,8 @@ initTelegramBot((bot) => {
 
   router
     .post('/reward', validateHeaders, addBotToContext, handlerFor.reward)
-    .post('/topic', validateHeaders, addBotToContext, handlerFor.topic);
+    .post('/topic', validateHeaders, addBotToContext, handlerFor.topic)
+    .post('/admin', validateHeaders, addBotToContext, handlerFor.admin);
 
   app
     .use(router.routes())
