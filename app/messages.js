@@ -2,38 +2,49 @@ function getUsername({ username }) {
  return username ? `@${username}` : '*со скрытым ником*';
 }
 
-const messageFor = {
-  reward: (username, title, description) => 
-    username
+function toMessage(array, { isDev }) {
+  const strings = isDev
     ? [
-      `💥 @${username}, поздравляем!`,
+      '⚙️ DEV SERVER ⚙️',
+      ' ',
+      ...array
+    ] 
+    : array;
+  return strings.join('\n');
+}
+
+const messageFor = {
+  reward: (data) => 
+    data.username
+    ? toMessage([
+      `💥 @${data.username}, поздравляем!`,
       '---',
-      `Вы получили награду: *${title}*🎖`,
+      `Вы получили награду: *${data.title}*🎖`,
       ' ',
-      `_${description}_`,
-    ].join('\n')
-    : [
-      `💥 Пользователь *со скрытым ником* получает награду: *${title}*🎖`,
+      `_${data.description}_`,
+    ], data)
+    : toMessage([
+      `💥 Пользователь *со скрытым ником* получает награду: *${data.title}*🎖`,
       ' ',
-      `_${description}_`,
-    ].join('\n'),
-  topic: (data) => [
+      `_${data.description}_`,
+    ], data),
+  topic: (data) => toMessage([
     `Пользователь ${getUsername(data)} создал новый раздел`,
     `*${data.topic}*`,
     '🥶  🎃  🥶  🎃  🥶',
-  ].join('\n'),
+  ], data),
   admin: (data) =>  {
     return data.isPositive
-      ? [
+      ? toMessage([
         `Пользователь ${getUsername(data)} теперь модератор.`,
         '🍹 🍹 🍹 🍹 🍹',
         'Просим любить и жаловать!'
-      ].join('\n')
-      : [
+      ], data)
+      : toMessage([
         `Пользователь ${getUsername(data)} больше не модератор.`,
         '🥁 🥁 🥁 🥁 🥁',
         'Благодарим за работу в команде! Желаем успехов!'
-      ].join('\n');
+      ], data);
   },
 };
 
