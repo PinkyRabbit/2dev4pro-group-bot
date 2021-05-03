@@ -21,6 +21,13 @@ jobs:
         with:
           host: ${{ secrets.DEV_IP }}
           username: ${{ secrets.DEV_USER }}
-          password: ${{ secrets.DEV_PASSWORD }}
+          key: ${{ secrets.DEV_KEY }}
+          passphrase: ${{ secrets.DEV_PASSPHRASE }}
           port: 22
-          script: cd /var/www/2dev4pro-group && eval "$(ssh-agent -s)" && git pull && npm install --only=production && pm2 restart group_telegram
+          script: |
+            cd /var/www/2dev4pro-group && \
+            git checkout -- . && \ 
+            git checkout development && \
+            git pull && \
+            npm install --only=production && \
+            pm2 restart 2dev4pro-group
