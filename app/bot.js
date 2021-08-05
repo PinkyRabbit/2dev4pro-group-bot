@@ -8,7 +8,8 @@ function initTelegramBot(callback) {
   bot.on('message', (message) => {
     const chatId = message.chat.id;
 
-    if (message.text === 'ping') {
+    if (message.text === '/ping') {
+      console.log(message)
       return bot.sendMessage(chatId, 'Pong 🏓');
     }
 
