@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production node ./app/index.js",
-    "start:dev": "NODE_ENV=development nodemon ./app/index.js"
+    "start:dev": "NODE_ENV=development nodemon ./index.js"
   },
   "keywords": [],
   "author": "",
@@ -14,13 +14,9 @@
     "extends": "plugin:unicorn/recommended"
   },
   "dependencies": {
-    "@koa/cors": "^3.1.0",
-    "@koa/router": "^10.0.0",
     "bluebird": "^3.7.2",
+    "bull": "^3.29.1",
     "dotenv": "^8.2.0",
-    "koa": "^2.13.1",
-    "koa-bodyparser": "^4.3.0",
-    "koa-helmet": "^6.0.0",
     "node-telegram-bot-api": "^0.53.0"
   },
   "devDependencies": {

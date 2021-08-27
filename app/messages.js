@@ -1,5 +1,11 @@
 function getUsername({ username }) {
- return username ? `@${username}` : '*со скрытым ником*';
+  const result = { u: '*со скрытым ником*', isHidden: true };
+  if (username) {
+    result.isHidden = false;
+    const usernameAsWord = /\w/.exec(username);
+    result.u = username === usernameAsWord ? `@${username}` : `*${username}*`;
+  }
+  return result;
 }
 
 function toMessage(array, { isDev }) {
@@ -14,34 +20,36 @@ function toMessage(array, { isDev }) {
 }
 
 const messageFor = {
-  reward: (data) => 
-    data.username
-    ? toMessage([
-      `💥 @${data.username}, поздравляем!`,
-      '---',
-      `Вы получили награду: *${data.rewardTitle}*🎖`,
-      ' ',
-      `_${data.rewardDescription}_`,
-    ], data)
-    : toMessage([
-      `💥 Пользователь *со скрытым ником* получает награду: *${data.rewardTitle}*🎖`,
-      ' ',
-      `_${data.rewardDescription}_`,
-    ], data),
+  reward: (data) => {
+    const { u, isHidden } = getUsername(data);
+    return isHidden
+      ? toMessage([
+        `💥 Пользователь ${u} получает награду: *${data.rewardTitle}*🎖`,
+        ' ',
+        `_${data.rewardDescription}_`,
+      ], data)
+      : toMessage([
+        `💥 ${u}, поздравляем!`,
+        '---',
+        `Вы получили награду: *${data.rewardTitle}*🎖`,
+        ' ',
+        `_${data.rewardDescription}_`,
+      ], data);
+  },
   topic: (data) => toMessage([
-    `Пользователь ${getUsername(data)} создал новый раздел`,
+    `Пользователь ${getUsername(data).u} создал новый раздел`,
     `*${data.topic}*`,
     '🥶  🎃  🥶  🎃  🥶',
   ], data),
   admin: (data) =>  {
     return data.isPositive
       ? toMessage([
-        `Пользователь ${getUsername(data)} теперь модератор.`,
+        `Пользователь ${getUsername(data).u} теперь модератор.`,
         '🍹 🍹 🍹 🍹 🍹',
         'Просим любить и жаловать!'
       ], data)
       : toMessage([
-        `Пользователь ${getUsername(data)} больше не модератор.`,
+        `Пользователь ${getUsername(data.u)} больше не модератор.`,
         '🥁 🥁 🥁 🥁 🥁',
         'Благодарим за работу в команде! Желаем успехов!'
       ], data);
